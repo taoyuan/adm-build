@@ -1,0 +1,64 @@
+{
+  "name": "adm-build",
+  "version": "0.1.0",
+  "description": "Build nodejs application to arm or amd64 package",
+  "homepage": "",
+  "author": {
+    "name": "taoyuan",
+    "email": "towyuan@outlook.com",
+    "url": ""
+  },
+  "bin": {
+    "adm-build": "./bin/adm-build.js"
+  },
+  "main": "lib/index.js",
+  "keywords": [
+    "adm",
+    "build",
+    "deploy",
+    "arm",
+    "armhf",
+    "amd64"
+  ],
+  "dependencies": {
+    "adm-logger": "^0.1.0",
+    "async": "^1.5.2",
+    "bluebird": "^3.3.3",
+    "chalk": "^1.1.1",
+    "debug": "^2.2.0",
+    "fs-extra": "^0.26.5",
+    "handlebars": "^4.0.5",
+    "ignore": "^2.2.19",
+    "lodash": "^4.5.1",
+    "ncp": "^2.0.0",
+    "needs": "^1.0.2",
+    "shelljs": "^0.6.0",
+    "tmp": "0.0.28",
+    "yargs": "^4.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.1.0",
+    "eslint-config-xo-space": "^0.10.0",
+    "gulp": "^3.9.0",
+    "gulp-eslint": "^2.0.0",
+    "gulp-exclude-gitignore": "^1.0.0",
+    "gulp-line-ending-corrector": "^1.0.1",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-mocha": "^2.0.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-nsp": "^2.1.0",
+    "gulp-coveralls": "^0.1.0"
+  },
+  "eslintConfig": {
+    "extends": "xo-space",
+    "env": {
+      "mocha": true
+    }
+  },
+  "repository": "taoyuan/adm-build",
+  "scripts": {
+    "prepublish": "gulp prepublish",
+    "test": "gulp"
+  },
+  "license": "MIT"
+}

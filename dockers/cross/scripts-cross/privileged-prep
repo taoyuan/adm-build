@@ -1,0 +1,26 @@
+#!/bin/bash
+
+groupadd -r builder
+useradd -r -g builder builder
+adduser builder sudo
+mkdir -p /home/builder
+
+cd /home/builder
+
+NODE_VERSION=v4.3.2
+
+wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz
+tar -xzf node-${NODE_VERSION}-linux-x64.tar.gz
+mv node-${NODE_VERSION}-linux-x64 node
+
+wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}.tar.gz
+tar -xzf node-${NODE_VERSION}.tar.gz
+mv node-${NODE_VERSION} node-src
+
+sudo click chroot -aarmhf -fubuntu-sdk-14.04 -s trusty create
+
+sudo click chroot -aarmhf -fubuntu-sdk-14.04 -s trusty maint apt-get install -y wget curl libudev-dev:armhf libgcrypt11-dev:armhf libglib2.0-dev:armhf libwhoopsie-dev:armhf libubuntuoneauth-2.0-dev:armhf libdbus-1-dev:armhf libnih-dbus-dev:armhf libsqlite3-dev:armhf crossbuild-essential-armhf
+
+sudo sed -i 's/overlayfs/none/' /etc/schroot/chroot.d/click-ubuntu-sdk-14.04-armhf
+
+cat /etc/schroot/chroot.d/click-ubuntu-sdk-14.04-armhf
