@@ -9,10 +9,10 @@ var pkg = require('../package.json');
 
 var argv = process.argv;
 var $0 = process.env.CMD ? process.env.CMD : path.basename(argv[1]);
+var app = $0.split(' ')[0];
+logger.log = logger.createLog(app, {level: logger.log.level});
 
-logger.log = logger.createLog($0, {level: logger.log.level});
-
-yargs
+yargs(argv.slice(2))
   .usage('Usage: ' + $0 + ' <target> [options]')
   .version(pkg.version)
   .alias('V', 'version')

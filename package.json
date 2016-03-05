@@ -8,6 +8,10 @@
     "email": "towyuan@outlook.com",
     "url": ""
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taoyuan/adm-build.git"
+  },
   "bin": {
     "adm-build": "./bin/adm-build.js"
   },
@@ -20,6 +24,9 @@
     "armhf",
     "amd64"
   ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
   "dependencies": {
     "adm-logger": "^0.1.0",
     "async": "^1.5.2",
@@ -55,7 +62,6 @@
       "mocha": true
     }
   },
-  "repository": "taoyuan/adm-build",
   "scripts": {
     "prepublish": "gulp prepublish",
     "test": "gulp"
