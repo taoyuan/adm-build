@@ -7,10 +7,12 @@ var yargs = require('yargs');
 var logger = require('adm-logger');
 var pkg = require('../package.json');
 
-var argv = process.argv.slice(2);
+var argv = process.argv;
 var $0 = process.env.CMD ? process.env.CMD : path.basename(argv[1]);
 var app = $0.split(' ')[0];
 logger.log = logger.createLog(app, {level: logger.log.level});
+
+argv = argv.slice(2);
 
 var build = require('..');
 yargs(argv)

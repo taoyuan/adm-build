@@ -15,7 +15,7 @@
   "bin": {
     "adm-build": "./bin/adm-build.js"
   },
-  "main": "lib/index.js",
+  "main": "lib/build.js",
   "keywords": [
     "adm",
     "build",
@@ -37,6 +37,7 @@
     "handlebars": "^4.0.5",
     "ignore": "^2.2.19",
     "lodash": "^4.5.1",
+    "nconf": "^0.8.4",
     "ncp": "^2.0.0",
     "needs": "^1.0.2",
     "shelljs": "^0.6.0",

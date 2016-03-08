@@ -1,0 +1,153 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var fs = require('fs');
+var path = require('path');
+var exec = require('child_process').exec;
+
+linkpkg(process.cwd(), process.argv[2]);
+
+function linkpkg(dir, target) {
+  var pkg;
+  try {
+    pkg = require(path.resolve(dir, 'package.json'));
+  } catch (e) {
+    throw e;
+  }
+
+  target = target || path.join('/', 'usr', 'local', 'bin');
+
+  var bin = pkg.bin;
+  if (!bin) {
+    process.exit(0);
+  }
+
+  var fns = [];
+  Object.keys(bin).forEach(function (name) {
+    var from = bin[name];
+    var to = path.join(target, name);
+    fns.push(function (cb) {
+      linkIfExists(from, to, true, function (err) {
+        if (err) throw err;
+        console.log(to, '->', from);
+        cb();
+      });
+    });
+  });
+  chain(fns, function (err) {
+    if (err) {
+      throw err;
+    }
+    process.exit(0);
+  });
+}
+
+function linkIfExists(from, to, gently, cb) {
+  fs.stat(from, function (er) {
+    if (er) return cb();
+    fs.readlink(to, function (er, fromOnDisk) {
+      // if the link already exists and matches what we would do,
+      // we don't need to do anything
+      if (!er) {
+        var toDir = path.dirname(to);
+        var absoluteFrom = path.resolve(toDir, from);
+        var absoluteFromOnDisk = path.resolve(toDir, fromOnDisk);
+        if (absoluteFrom === absoluteFromOnDisk) return cb()
+      }
+      link(from, to, gently, cb)
+    })
+  })
+}
+
+function link(from, to, gently, abs, cb) {
+  if (typeof cb !== 'function') {
+    cb = abs;
+    abs = false
+  }
+  if (typeof cb !== 'function') {
+    cb = gently;
+    gently = null
+  }
+  to = path.resolve(to);
+  var target = from = path.resolve(from);
+  if (!abs && process.platform !== 'win32') {
+    // junctions on windows must be absolute
+    target = path.relative(path.dirname(to), from);
+    // if there is no folder in common, then it will be much
+    // longer, and using a relative link is dumb.
+    if (target.length >= from.length) target = from;
+  }
+
+
+  chain([
+    function (cb) {
+      fs.stat(from, cb);
+    },
+    function (cb) {
+      fs.unlink(to, function () {
+        cb();
+      });
+    },
+    function (cb) {
+      fs.mkdir(path.dirname(to), function () {
+        cb();
+      });
+    },
+    function (cb) {
+      fs.symlink(target, to, 'junction', cb);
+    },
+    function (cb) {
+      exec('chmod +x ' + from, cb);
+    }
+  ], cb)
+}
+
+function chain(methods, end) {
+  var _end = _endFunction(end),
+    methodsLength = methods && methods.length,
+    methodIndex = 0;
+
+  function _execute(methodIndex) {
+    if (methodIndex < methodsLength) {
+      methods[methodIndex](_next);
+    } else {
+      _end();
+    }
+  }
+
+  function _next(error) {
+    if (!error) {
+      _execute(methodIndex++);
+    } else {
+      _end(error);
+    }
+  }
+
+  if (_checkMethods(methods)) {
+    _next();
+  } else {
+    _next(false);
+  }
+}
+
+function _endFunction(end) {
+  function _emptyFunction() {
+  }
+
+  return (typeof end === 'function') ? end : _emptyFunction;
+}
+
+function _checkMethods(methods) {
+  var methodsLength = methods && methods.length,
+    correct = !!methodsLength,
+    i = 0;
+
+  while (correct && (i < methodsLength)) {
+    correct &= (typeof methods[i] === 'function');
+    i++;
+  }
+  return correct;
+}
+
+
