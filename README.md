@@ -9,7 +9,14 @@ $ npm install --save adm-build
 
 ## Usage
 
-__Coming soon__
+### deb before|after scripts
+
+Template context:
+
+* apphome: application home path.
+* approot: application root path. default is `/opt`
+* svcname: service name. same as package name
+* deployname: deploy directory name. same as the basename of the package local path
 
 ## License
 
