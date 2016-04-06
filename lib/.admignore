@@ -13,5 +13,5 @@ CVS
 npm-debug.log
 .tmp
 .build
-.dist
+dist
 *.deb

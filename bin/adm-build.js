@@ -16,7 +16,7 @@ argv = argv.slice(2);
 
 var build = require('..');
 yargs(argv)
-  .usage('Usage: ' + $0 + ' <target> [options]')
+  .usage('Usage: ' + $0 + ' [target] [options]')
   .version(pkg.version)
   .alias('V', 'version')
   .help('h')
@@ -25,9 +25,9 @@ yargs(argv)
 
 var options = yargs.argv;
 
-if (!options._.length) {
-  return yargs.showHelp();
-}
+// if (!options._.length) {
+//   return yargs.showHelp();
+// }
 
 build(options);
 
