@@ -1,6 +1,6 @@
 {
   "name": "adm-build",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Build nodejs application to arm or amd64 package",
   "homepage": "",
   "author": {
