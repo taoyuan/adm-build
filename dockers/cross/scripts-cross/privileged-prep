@@ -19,7 +19,7 @@ mv node-${NODE_VERSION} node-src
 
 sudo click chroot -aarmhf -fubuntu-sdk-14.04 -s trusty create
 
-sudo click chroot -aarmhf -fubuntu-sdk-14.04 -s trusty maint apt-get install -y git wget curl  tesseract-ocr libtesseract-dev:armhf libudev-dev:armhf libgcrypt11-dev:armhf libglib2.0-dev:armhf libwhoopsie-dev:armhf libubuntuoneauth-2.0-dev:armhf libdbus-1-dev:armhf libnih-dbus-dev:armhf libsqlite3-dev:armhf crossbuild-essential-armhf
+sudo click chroot -aarmhf -fubuntu-sdk-14.04 -s trusty maint apt-get install -y git wget curl libleptonica-dev:armhf libtesseract-dev:armhf libudev-dev:armhf libgcrypt11-dev:armhf libglib2.0-dev:armhf libwhoopsie-dev:armhf libubuntuoneauth-2.0-dev:armhf libdbus-1-dev:armhf libnih-dbus-dev:armhf libsqlite3-dev:armhf crossbuild-essential-armhf
 
 sudo sed -i 's/overlayfs/none/' /etc/schroot/chroot.d/click-ubuntu-sdk-14.04-armhf
 

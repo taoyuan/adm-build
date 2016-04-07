@@ -28,7 +28,7 @@ deb-src http://mirrors.sohu.com/ubuntu/ trusty-backports main restricted univers
 
 
 RUN apt-get update
-RUN apt-get install -y nano wget curl click click-dev schroot dpkg-dev debootstrap mercurial git build-essential tesseract-ocr libleptonica-dev libtesseract-dev libudev-dev
+RUN apt-get install -y nano wget curl click click-dev schroot dpkg-dev debootstrap mercurial git build-essential libleptonica-dev libtesseract-dev libudev-dev
 RUN curl -sL https://deb.nodesource.com/setup_4.x | sudo bash -
 RUN apt-get install -y nodejs
 
