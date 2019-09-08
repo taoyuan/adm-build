@@ -1,4 +1,7 @@
 # adm-build [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/taoyuan/adm-build.svg)](https://greenkeeper.io/)
+
 > Build nodejs application to arm or amd64 package
 
 ## Installation
